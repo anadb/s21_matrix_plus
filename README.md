@@ -1,137 +1,157 @@
-# s21_containers
+# s21_matrix+
 
-Implementation of the s21_containers.h. library.
+Implementation of the s21_matrix_oop.h library.
 
 💡 [Tap here](https://new.oprosso.net/p/4cb31ec3f47a4596bc758ea1861fb624) **to leave your feedback on the project**. It's anonymous and will help our team make your educational experience better. We recommend completing the survey immediately after the project.
 
 ## Contents
 
 1. [Chapter I](#chapter-i) \
-   1.1. [Introduction](#introduction)
+    1.1. [Introduction](#introduction)
 2. [Chapter II](#chapter-ii) \
-   2.1. [Information](#information)
+    2.1. [Information](#information)
 3. [Chapter III](#chapter-iii) \
-   3.1. [Part 1](#part-1-implementation-of-the-s21_containersh-library)  
-   3.2. [Part 2](#part-2-bonus-implementation-of-the-s21_containersplush-library)  
-   3.3. [Part 3](#part-3-bonus-implementation-of-the-insert_many-method)
+    3.1. [Part 1](#part-1-implementation-of-the-s21_matrix_ooph-library-functions)
 
 
 ## Chapter I
 
-![s21_containers](misc/images/s21_containers.png)
+![s21_matrix](misc/images/s21_matrix.png)
 
-Planet Earth, somewhere between the massive containers of the port, 29 October 1993.
+Planet Earth, 20 September 2000.
 
-*"Do you really think Bjarne will agree to add this to the standard?"*
+*"Our CEO has such a wonderful country house! It has everything to make ideas come true. A veranda overlooking a huge swimming pool on the lawn completes the picture of a passionate and intelligent person."*
 
-*"Sure. Especially since he was already interested in templates a couple of years ago, but then they couldn't get enough reliability of the developing library",* said a middle-aged man wearing a white shirt and an HP Labs nametag that said 'A. Stepanov'.
+*"Yes, I agree! I'm so glad we were invited here. To tell you the truth, I feel a bit déjà vu, like I've seen this place before."*
 
-*"I saw your presentation on generalised programming. The idea is really impressive, but they wanted to release the new standard by the end of the year. It will need a lot of adjustments..."*
+*"Oh, that's weird. Believe me, you won't find a house like this anywhere else in the country!* \
+*So, what were we talking about? Oh, right! For several days now, in this vibrant place, id Software's main technical team has been discussing a new technology we want to introduce in our upcoming game Doom 3. And what creates the most sense of reality in an image? The play of light and shadow, of course, which currently takes too long to compute and puts a strain on the CPU.
+John is known for his technological and algorithmic ideas and tricks that have led to crazy breakthroughs in speed and code optimisation."*
 
-*"I think that's exactly what they needed to complete the new standard. Especially, as you said, the idea is impressive. But it does need some adjustments. In order to be fully confident of the success of the presentation, we need to give some examples of how the approach and the templates can be used in general. You are familiar with the structure of single-linked lists, right?"*
+*"Yeah, feels like I've heard that one before."*
 
-*"Yeah, I think I'm starting to get your idea. You want to implement generalized lists as an example? One template class for all types?"*
+*"Really? I guess Catharina got to you first.* \
+*Anyway, on to the interesting part. John Carmack, our Chief Technology Officer and the founder of the company, presented a theoretical development that would allow shadows to be cast on a scene after it has gone through the entire graphics pipeline, using a depth buffer and a stencil buffer."*
 
-*"Not only that. Imagine if any container could be described once and then used with different data types and classes. How much time, effort and resources it would save! Lists, maps, sets!"* The walk along the Embarcadero promenade was clearly getting more interesting.
+*"Oh, that's really... fascinating."*
 
-*"Queues and stacks... Damn, that's genius."*
+*"We invited you to this party for a reason. The whole team is working on a new way of creating shadows in a scene, and your department in particular has been asked by John to implement a very fast and optimised library of all sorts of matrix transformations on which the entire mathematical logic of the algorithm will be based. Vectors and matrices, transpose and SRT conversions, and many other mathematical objects and operations used in computer graphics.*
+*For a correct and considered transition to the new method, we need a significant and impressive performance change, and you will be responsible for it! Please remember that all the work must be done in a modern OOP style to achieve maximum code quality!"*
 
-*"Exactly. Who, after such examples, would refuse to add a library to their language standard?"*
+*"Well, I would be… um… happy to help you."*
 
-*"I'm in. We could even put together a small team of guys who are interested. How much time do we have to implement these examples?"*
+*"Perfect! Who knows, maybe..."*
 
-*"About two weeks before the presentation meeting in San Jose, then..."*
+## Introduction
 
-### Introduction
-
-As part of the project you need to write your own library that implements the basic standard C++ container classes: `list`, `map`, `queue`, `set`, `stack` and `vector`. Implementations should provide a full set of standard methods and attributes for element handling, container capacity checking and iteration. As a bonus, you can also implement several other container classes from the C++ container library that are not as commonly used, but differ in their implementation details.
+In this project, you will implement the matrix library that you already know from the **s21_matrix** project, but this time you will be using the object-oriented approach (see materials). The object-oriented approach allows to implement a library for matrices as a separate class whose objects have defined operations, that can be represented both as methods and as standard operators +, -, *, etc.
 
 
 ## Chapter II
 
-### Information
+## Information
 
-For most people, the word "container" is self-explanatory and comes from the English word "contain". The same is true in programming: containers are used to contain sets of objects of the same type, i.e. elements. However, there are a huge number of container classes. This is because container classes differ in the organisation of the stored object sets and in the methods provided to interact with them. For example, lists (`list`) store any object, while sets (`set`) store only some unique objects.
+### C++ and C
 
-The need to separate containers, rather than using the same container for different tasks, is not only due to obvious functional differences. In some cases it is more efficient to use lists, e.g. if the task at hand requires frequent insertion of elements in the middle of the container, but if new elements are only added at the end, it is better to use a queue.
+C++ is a programming language based on the C language for implementing programs using an object-oriented approach. This means that the C++ syntax rules are derived directly from C, so most C code can be copied into C++ programs and successfully compiled.
+For the most part, C++ only adds or modifies capabilities for the programmer, rather than taking away anything, so it's easier to talk about the differences (see Resources) than the similarities when it comes to C++.
 
-Each type of containers should provide the user with the following methods:
+### An example of a matrix class in C++
+```cpp
+class S21Matrix {
+    private:
+        // Attributes
+        int rows_, cols_;         // Rows and columns
+        double **matrix_;         // Pointer to the memory where the matrix is allocated
 
-- standard constructors (default constructor, copy constructor, move constructor, constructor with initialization list, see materials);
+    public:
+        S21Matrix();              // Default constructor
+        ~S21Matrix();             // Destructor
 
-- methods for accessing container elements (e.g. accessing an element with the index i);
+        void SumMatrix(const S21Matrix& other); 
+        // Other methods..
+}
+```
 
-- methods for checking if a container is full (e.g. the number of elements in the container, check if the container is empty);
+### A reminder of the matrix basics
 
-- methods for changing the container (removing and adding new elements, cleaning the container);
+Matrix is a rectangular table of numbers arranged in m rows and n columns:
 
-- methods for dealing with the container iterator.
+```
+    1 2 3
+A = 4 5 6
+    7 8 9
+```
 
-Iterators provide access to container elements. The specific type of iterator will be different for each container. This is due to the different way of organising object sets in container classes, as well as the actual implementation of the container. Iterators are implemented to work in a similar way to a pointer to an array element in C. So this approach to iterators allows you to interact with any container in the same way. Containers provide iterators via the `begin()` and `end()` methods, which point to the first and next after last elements of the container respectively.
+```
+     1  2  3  4
+В =  5  6  7  8
+     9 10 11 12
+```
 
-Iterator `iter` has the following operations:
+You can get the desired element using indices as follows A[1,1] = 1, where the first index is the row number, the second is the column number.
 
-- `*iter`: gets the element pointed to by the iterator;
+The order of a matrix is the number of its rows or columns. \
+The main diagonal of a square matrix is the diagonal from the upper left to the lower right corner. \
 
-- `++iter`: moves the iterator forward to the next element;
+A rectangular matrix (B) is a matrix with the number of rows not equal to the number of columns. \
+A square matrix (A) is a matrix with the number of rows equal to the number of columns.
 
-- `--iter`: moves the iterator backwards to the previous element;
+## Matrix operations
 
-- `iter1 == iter2`: two iterators are equal if they point to the same element;
+Below is a brief description of the matrix operations that need to be implemented in the development library.
+They are similar to the operations you performed earlier in "Structured Programming", so you can see a more detailed description of them there.
+Note that some operations have exceptional situations that require special handling using the exception mechanism.
 
-- `iter1 != iter2`: two iterators are not equal if they point to different elements.
+| Operation | Description | Exceptional situations |
+| ----------- | ----------- | ----------- |
+| `bool EqMatrix(const S21Matrix& other)` | Checks matrices for equality with each other. |  |
+| `void SumMatrix(const S21Matrix& other)` | Adds the second matrix to the current one | different matrix dimensions. |
+| `void SubMatrix(const S21Matrix& other)` | Subtracts another matrix from the current one | different matrix dimensions. |
+| `void MulNumber(const double num) ` | Multiplies the current matrix by a number. |  |
+| `void MulMatrix(const S21Matrix& other)` | Multiplies the current matrix by the second matrix. | The number of columns of the first matrix is not equal to the number of rows of the second matrix. |
+| `S21Matrix Transpose()` | Creates a new transposed matrix from the current one and returns it. |  |
+| `S21Matrix CalcComplements()` | Calculates the algebraic addition matrix of the current one and returns it. | The matrix is not square. |
+| `double Determinant()` | Calculates and returns the determinant of the current matrix. | The matrix is not square. |
+| `S21Matrix InverseMatrix()` | Calculates and returns the inverse matrix. | Matrix determinant is 0. |
 
-In addition to the special organisation of objects and the provision of the necessary methods, the implementation of container classes requires the templating of objects.
+Apart from those operations, you also need to implement constructors and destructors:
 
-Template classes or class templates are used when you want to create a class that depends on additional external parameters, which can be other classes or data types. For example, if you need to create a list class, you don't want to have to rewrite the list implementation for all possible element types. It would be nice to write one class with one parameter and get several specific list classes at once (character, integer, floating-point, user-defined type lists, etc.).
-In C++, containers are part of the Standard Template Library (STL) for this very reason, along with iterators and some algorithms.
+| Method | Description |
+| ----------- | ----------- |
+| `S21Matrix()` | A basic constructor that initialises a matrix of some predefined dimension. |  
+| `S21Matrix(int rows, int cols) ` | Parametrized constructor with number of rows and columns. |
+| `S21Matrix(const S21Matrix& other)` | Copy constructor. |
+| `S21Matrix(S21Matrix&& other)` | Move constructor. |
+| `~S21Matrix()` | Destructor. |
 
-There are two main types of containers: sequence and associative containers. To find an element in sequence containers (`list`, `vector`, `array`, `stack`, `queue`), you have to look through the container one by one, while in associative containers (`map`, `set`, `multiset`) you just need to look through the key associated with the value.
+And you also need to overload the following operators, partly corresponding to the operations above:
+
+| Operator | Description | Exceptional situations |
+| ----------- | ----------- | ----------- |
+| `+`      | Addition of two matrices. | Different matrix dimensions. |
+| `-`   | Subtraction of one matrix from another. | Different matrix dimensions. |
+| `*`  | Matrix multiplication and matrix multiplication by a number. | The number of columns of the first matrix does not equal the number of rows of the second matrix. |
+| `==`  | Checks for matrices equality (`EqMatrix`). | |
+| `=`  | Assignment of values from one matrix to another one. | |
+| `+=`  | Addition assignment (`SumMatrix`) | different matrix dimensions. |
+| `-=`  | Difference assignment (`SubMatrix`) | different matrix dimensions. |
+| `*=`  | Multiplication assignment (`MulMatrix`/`MulNumber`). | The number of columns of the first matrix does not equal the number of rows of the second matrix. |
+| `(int i, int j)`  | Indexation by matrix elements (row, column). | Index is outside the matrix. |
 
 
 ## Chapter III
 
+## Part 1. Implementation of the s21_matrix_oop.h library functions
+
 - The program must be developed in C++ language of C++20 standard using gcc compiler;
 - The program code must be located in the src folder;
 - When writing code it is necessary to follow the Google style;
-- Make sure to use iterators;
-- Classes must be template;
-- Classes must be implemented within the `s21` namespace;
-- Prepare full coverage of container classes methods with unit-tests using the GTest library;
-- Copying of the Standard Template Library (STL) implementation is not allowed;
-- The logic of the Standard Template Library (STL) must be followed (in terms of checks, memory handling and behaviour in abnormal situations).
-
-### Part 1. Implementation of the s21_containers.h library
-
-You need to implement the `s21_containers.h` library classes (specifications are given in the relevant material sections, see **"Main containers"**). \
-List of classes: `list`, `map`, `queue`, `set`, `stack`, `vector`.
-- Make it as a header file `s21_containers.h` which includes different header files with implementations of the specified containers (`s21_list.h`, `s21_map.h` and etc.); 
-- Provide a Makefile for testing the library (with targets clean, test);
-- The classical implementation of containers should be considered as a basis, but the final choice of implementations remains free. Except for the list — it should be implemented via the list structure rather than the array.
-
-*Tip*: You can move the same implementation of container methods to base classes. For example, for a queue and a stack, or for a list and a vector. There is a UML diagram of the STL library in materials as *one possible example* of hierarchical construction. However, your implementation does not have to be strictly tied to this UML diagram.
-
-### Part 2. Bonus. Implementation of the s21_containersplus.h library.
-
-You need to implement the `s21_containersplus.h` library functions (see **"Additional containers"** for specifications). \
-List of classes to be implemented additionally: `array`, `multiset`.
-- Make it as a header file `s21_containersplus.h` which includes different header files with implementations of the specified containers (`s21_array.h`, `s21_multiset.h`); 
-- Provide a Makefile for testing the library (with targets clean, test);
-- The classical implementation of containers should be considered as a basis, but the final choice of the algorithm remains free.
-
-### Part 3. Bonus. Implementation of the `insert_many` method.
-
-You need to complete the classes with the appropriate methods, according to the table:
-
-| Modifiers      | Definition                                      | Containers |
-|----------------|-------------------------------------------------| -------------------------------------------|
-| `iterator insert_many(const_iterator pos, Args&&... args)`          | Inserts new elements into the container directly before `pos`.  | List, Vector. |
-| `void insert_many_back(Args&&... args)`          | Appends new elements to the end of the container.  | List, Vector, Queue, Stack. |
-| `void insert_many_front(Args&&... args)`          | Appends new elements to the top of the container.  | List. |
-| `vector<std::pair<iterator,bool>> insert_many(Args&&... args)`          | Inserts new elements into the container.  | Map, Set, Multiset. |
-
-Note: the arguments are the already created elements of the appropriate container that should be inserted into this container.
-
-*Tip 1*: Notice that each of these methods uses an Args&&... args — Parameter pack construct. This construct allows a variable number of parameters to be passed to a function or method. So, when calling a method defined as `iterator insert_many(const_iterator pos, Args&&... args)`, you can write either `insert_many(pos, arg1, arg2)` or `insert_many(pos, arg1, arg2, arg3)`.
-
-*Tip 2*: Remember to test methods for different cases, including boundary ones.
+- Implement the matrix as an `S21Matrix` class;
+- Use only the `matrix_`, `rows_` and `cols_` fields as private;
+- Implement the access to private fields `rows_` and `cols_` via accessor and mutator. If the matrix increases in size, it is filled with zeros. If it decreases in size, the excess is simply discarded;
+- Make it as a static library (with s21_matrix_oop.h header file);
+- Implement the operations described [above](#matrix-operations);
+- Overload the operators according to the table in the chapter [above](#matrix-operations);
+- Prepare full coverage of library functions code with unit-tests using the GTest library;
+- Provide a Makefile for building the library and tests (with targets all, clean, test, s21_matrix_oop.a).
